@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation for Karnataka</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center mb-6">Crop Recommendation for Karnataka</h1>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                <div>
+                    <label for="month" class="block text-sm font-medium text-gray-700">Month</label>
+                    <select id="month" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="">All Months</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="season" class="block text-sm font-medium text-gray-700">Season</label>
+                    <select id="season" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="">All Seasons</option>
+                        <option value="Kharif">Kharif</option>
+                        <option value="Rabi">Rabi</option>
+                        <option value="Zaid">Zaid</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="soil" class="block text-sm font-medium text-gray-700">Soil Type</label>
+                    <select id="soil" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="">All Soil Types</option>
+                        <option value="Clayey">Clayey</option>
+                        <option value="Loamy">Loamy</option>
+                        <option value="Sandy Loam">Sandy Loam</option>
+                        <option value="Red">Red</option>
+                        <option value="Black">Black</option>
+                        <option value="Lateritic">Lateritic</option>
+                        <option value="Alluvial">Alluvial</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="district" class="block text-sm font-medium text-gray-700">District</label>
+                    <select id="district" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="">All Districts</option>
+                        <option value="Bagalkot">Bagalkot</option>
+                        <option value="Belagavi">Belagavi</option>
+                        <option value="Bengaluru Rural">Bengaluru Rural</option>
+                        <option value="Bidar">Bidar</option>
+                        <option value="Chikkaballapur">Chikkaballapur</option>
+                        <option value="Chitradurga">Chitradurga</option>
+                        <option value="Dakshina Kannada">Dakshina Kannada</option>
+                        <option value="Dharwad">Dharwad</option>
+                        <option value="Haveri">Haveri</option>
+                        <option value="Kalaburagi">Kalaburagi</option>
+                        <option value="Kolar">Kolar</option>
+                        <option value="Mandya">Mandya</option>
+                        <option value="Mysuru">Mysuru</option>
+                        <option value="Raichur">Raichur</option>
+                        <option value="Ramanagara">Ramanagara</option>
+                        <option value="Tumakuru">Tumakuru</option>
+                        <option value="Udupi">Udupi</option>
+                        <option value="Vijayapura">Vijayapura</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cropType" class="block text-sm font-medium text-gray-700">Crop Type</label>
+                    <select id="cropType" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="">All Crop Types</option>
+                        <option value="Cereal">Cereal</option>
+                        <option value="Millet">Millet</option>
+                        <option value="Lentil/Pulse">Lentil/Pulse</option>
+                        <option value="Oilseed">Oilseed</option>
+                        <option value="Vegetable">Vegetable</option>
+                        <option value="Fruit">Fruit</option>
+                        <option value="Flower">Flower</option>
+                        <option value="Cash Crop">Cash Crop</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="nitrogen" class="block text-sm font-medium text-gray-700">Nitrogen (kg/ha)</label>
+                    <input type="number" id="nitrogen" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., 100" min="0" step="1">
+                </div>
+                <div>
+                    <label for="phosphorus" class="block text-sm font-medium text-gray-700">Phosphorus (kg/ha)</label>
+                    <input type="number" id="phosphorus" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., 50" min="0" step="1">
+                </div>
+                <div>
+                    <label for="potassium" class="block text-sm font-medium text-gray-700">Potassium (kg/ha)</label>
+                    <input type="number" id="potassium" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., 40" min="0" step="1">
+                </div>
+            </div>
+        </div>
+        <div id="alerts" class="mb-6"></div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <table id="cropTable" class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-3 text-left">Crop</th>
+                        <th class="p-3 text-left">Crop Type</th>
+                        <th class="p-3 text-left">Season</th>
+                        <th class="p-3 text-left">Months</th>
+                        <th class="p-3 text-left">Soil Type</th>
+                        <th class="p-3 text-left">Districts</th>
+                        <th class="p-3 text-left">NPK (kg/ha)</th>
+                        <th class="p-3 text-left">Remarks</th>
+                        <th class="p-3 text-left">Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody id="cropTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const cropData = [
+            // Cereals
+            { crop: "Maize", cropType: "Cereal", season: "Kharif", months: ["June", "July", "August"], soil: ["Loamy", "Sandy Loam", "Red"], districts: ["Belagavi", "Haveri", "Dharwad", "Chikkaballapur"], npk: { N: 135, P: 70, K: 45 }, npkString: "N: 120–150, P: 60–80, K: 40–50", remarks: "High yield with irrigation. Prefers well-drained soils.", weight: 0.9 },
+            { crop: "Rice (Paddy)", cropType: "Cereal", season: "Kharif", months: ["June", "July", "August"], soil: ["Clayey", "Loamy", "Alluvial"], districts: ["Mandya", "Raichur", "Mysuru"], npk: { N: 110, P: 55, K: 45 }, npkString: "N: 100–120, P: 50–60, K: 40–50", remarks: "Major crop in irrigated areas. Requires high water retention soils.", weight: 0.8 },
+            { crop: "Wheat", cropType: "Cereal", season: "Rabi", months: ["November", "December", "January"], soil: ["Loamy", "Alluvial", "Black"], districts: ["Vijayapura", "Bagalkot", "Dharwad"], npk: { N: 110, P: 55, K: 45 }, npkString: "N: 100–120, P: 50–60, K: 40–50", remarks: "Requires cool climate, irrigation.", weight: 0.7 },
+            // Millets
+            { crop: "Ragi (Finger Millet)", cropType: "Millet", season: "Kharif", months: ["July", "August", "September"], soil: ["Red", "Loamy", "Lateritic"], districts: ["Mysuru", "Tumakuru", "Dakshina Kannada", "Chikkaballapur"], npk: { N: 55, P: 28, K: 23 }, npkString: "N: 50–60, P: 25–30, K: 20–25", remarks: "Drought-tolerant, suits rain-fed areas.", weight: 0.85 },
+            { crop: "Jowar (Sorghum)", cropType: "Millet", season: "Rabi", months: ["October", "November", "December"], soil: ["Black", "Red", "Loamy"], districts: ["Vijayapura", "Kalaburagi", "Bagalkot"], npk: { N: 70, P: 35, K: 25 }, npkString: "N: 60–80, P: 30–40, K: 20–30", remarks: "Suits rain-fed areas, drought-tolerant.", weight: 0.8 },
+            { crop: "Bajra (Pearl Millet)", cropType: "Millet", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Sandy Loam"], districts: ["Chitradurga", "Tumakuru", "Chikkaballapur"], npk: { N: 50, P: 25, K: 25 }, npkString: "N: 40–60, P: 20–30, K: 20–30", remarks: "Highly drought-tolerant, low nutrient needs.", weight: 0.9 },
+            // Lentils/Pulses
+            { crop: "Gram (Chickpea)", cropType: "Lentil/Pulse", season: "Rabi", months: ["November", "December", "January"], soil: ["Black", "Loamy"], districts: ["Kalaburagi", "Bidar", "Vijayapura"], npk: { N: 25, P: 45, K: 25 }, npkString: "N: 20–30, P: 40–50, K: 20–30", remarks: "Nitrogen-fixing, low water needs.", weight: 0.8 },
+            { crop: "Green Gram (Moong)", cropType: "Lentil/Pulse", season: "Zaid", months: ["March", "April", "May"], soil: ["Red", "Loamy"], districts: ["Chitradurga", "Tumakuru", "Chikkaballapur"], npk: { N: 25, P: 45, K: 25 }, npkString: "N: 20–30, P: 40–50, K: 20–30", remarks: "Nitrogen-fixing, drought-tolerant.", weight: 0.85 },
+            { crop: "Black Gram (Urad)", cropType: "Lentil/Pulse", season: "Kharif", months: ["July", "August", "September"], soil: ["Loamy", "Black"], districts: ["Bidar", "Kalaburagi"], npk: { N: 25, P: 45, K: 25 }, npkString: "N: 20–30, P: 40–50, K: 20–30", remarks: "Nitrogen-fixing, suits rain-fed areas.", weight: 0.7 },
+            { crop: "Toor Dal (Pigeon Pea)", cropType: "Lentil/Pulse", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Loamy", "Black"], districts: ["Kalaburagi", "Vijayapura", "Bagalkot"], npk: { N: 25, P: 45, K: 25 }, npkString: "N: 20–30, P: 40–50, K: 20–30", remarks: "Nitrogen-fixing, long-duration crop.", weight: 0.75 },
+            // Oilseeds
+            { crop: "Groundnut", cropType: "Oilseed", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Sandy Loam", "Black"], districts: ["Dharwad", "Chitradurga", "Belagavi", "Chikkaballapur"], npk: { N: 30, P: 50, K: 25 }, npkString: "N: 20–40, P: 40–60, K: 20–30", remarks: "Fixes nitrogen, improves soil fertility.", weight: 0.8 },
+            { crop: "Sesame", cropType: "Oilseed", season: "Rabi", months: ["November", "December"], soil: ["Red", "Sandy Loam"], districts: ["Bidar", "Raichur"], npk: { N: 45, P: 25, K: 18 }, npkString: "N: 40–50, P: 20–30, K: 15–20", remarks: "Low nutrient demand, drought-tolerant.", weight: 0.7 },
+            { crop: "Sunflower", cropType: "Oilseed", season: "Kharif", months: ["July", "August"], soil: ["Loamy", "Black"], districts: ["Vijayapura", "Raichur"], npk: { N: 70, P: 35, K: 25 }, npkString: "N: 60–80, P: 30–40, K: 20–30", remarks: "Prefers well-drained soils, moderate water needs.", weight: 0.75 },
+            { crop: "Soybean", cropType: "Oilseed", season: "Kharif", months: ["June", "July", "August"], soil: ["Loamy", "Black"], districts: ["Bidar", "Belagavi"], npk: { N: 30, P: 70, K: 35 }, npkString: "N: 20–40, P: 60–80, K: 30–40", remarks: "Nitrogen-fixing, suits rain-fed areas.", weight: 0.8 },
+            // Vegetables
+            { crop: "Tomato", cropType: "Vegetable", season: "Kharif", months: ["July", "August", "September"], soil: ["Loamy", "Sandy Loam"], districts: ["Kolar", "Chikkaballapur", "Bengaluru Rural"], npk: { N: 110, P: 55, K: 70 }, npkString: "N: 100–120, P: 50–60, K: 60–80", remarks: "High yield with irrigation, needs trellising.", weight: 0.9 },
+            { crop: "Brinjal", cropType: "Vegetable", season: "Kharif", months: ["July", "August"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Ramanagara", "Kolar"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Requires warm climate, moderate water.", weight: 0.85 },
+            { crop: "Cucumber", cropType: "Vegetable", season: "Zaid", months: ["March", "April", "May"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Ramanagara", "Chikkaballapur"], npk: { N: 70, P: 35, K: 45 }, npkString: "N: 60–80, P: 30–40, K: 40–50", remarks: "Short duration, high yield.", weight: 0.8 },
+            { crop: "Onion", cropType: "Vegetable", season: "Rabi", months: ["October", "November", "December"], soil: ["Loamy", "Sandy Loam"], districts: ["Chitradurga", "Dharwad", "Haveri"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Prefers cool climate, well-drained soils.", weight: 0.75 },
+            { crop: "Carrot", cropType: "Vegetable", season: "Rabi", months: ["November", "December", "January"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Kolar"], npk: { N: 70, P: 35, K: 45 }, npkString: "N: 60–80, P: 30–40, K: 40–50", remarks: "Requires cool climate, loose soils.", weight: 0.7 },
+            { crop: "Cabbage", cropType: "Vegetable", season: "Rabi", months: ["October", "November", "December"], soil: ["Loamy", "Alluvial"], districts: ["Bengaluru Rural", "Mysuru"], npk: { N: 110, P: 55, K: 45 }, npkString: "N: 100–120, P: 50–60, K: 40–50", remarks: "High nutrient needs, prefers cool weather.", weight: 0.7 },
+            { crop: "Chilli", cropType: "Vegetable", season: "Kharif", months: ["July", "August"], soil: ["Loamy", "Black"], districts: ["Haveri", "Dharwad", "Belagavi"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Requires warm climate, irrigation.", weight: 0.8 },
+            { crop: "Potato", cropType: "Vegetable", season: "Rabi", months: ["November", "December", "January"], soil: ["Loamy", "Sandy Loam"], districts: ["Hassan", "Belagavi"], npk: { N: 135, P: 70, K: 90 }, npkString: "N: 120–150, P: 60–80, K: 80–100", remarks: "High nutrient demand, needs loose soils.", weight: 0.75 },
+            { crop: "Okra", cropType: "Vegetable", season: "Kharif", months: ["June", "July", "August"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Kolar", "Chikkaballapur"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Warm climate, short duration.", weight: 0.85 },
+            { crop: "Cauliflower", cropType: "Vegetable", season: "Rabi", months: ["October", "November", "December"], soil: ["Loamy", "Alluvial"], districts: ["Bengaluru Rural", "Mysuru"], npk: { N: 110, P: 55, K: 45 }, npkString: "N: 100–120, P: 50–60, K: 40–50", remarks: "Cool climate, high nutrient needs.", weight: 0.7 },
+            // Fruits
+            { crop: "Mango", cropType: "Fruit", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Loamy", "Alluvial"], districts: ["Kolar", "Ramanagara", "Tumakuru", "Chikkaballapur"], npk: { N: 125, P: 60, K: 85 }, npkString: "N: 100–150, P: 50–70, K: 70–100", remarks: "Perennial crop, needs irrigation during fruiting.", weight: 0.9 },
+            { crop: "Banana", cropType: "Fruit", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Loamy", "Alluvial"], districts: ["Mysuru", "Hassan", "Bagalkot"], npk: { N: 225, P: 90, K: 175 }, npkString: "N: 200–250, P: 80–100, K: 150–200", remarks: "High nutrient and water needs, irrigated areas.", weight: 0.8 },
+            { crop: "Watermelon", cropType: "Fruit", season: "Zaid", months: ["March", "April", "May"], soil: ["Sandy Loam", "Alluvial"], districts: ["Kolar", "Chikkaballapur"], npk: { N: 90, P: 45, K: 70 }, npkString: "N: 80–100, P: 40–50, K: 60–80", remarks: "Needs warm, dry weather, irrigation.", weight: 0.85 },
+            { crop: "Sapota", cropType: "Fruit", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Loamy"], districts: ["Kolar", "Tumakuru", "Chikkaballapur"], npk: { N: 125, P: 60, K: 85 }, npkString: "N: 100–150, P: 50–70, K: 70–100", remarks: "Perennial, drought-tolerant.", weight: 0.8 },
+            { crop: "Guava", cropType: "Fruit", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Loamy", "Alluvial"], districts: ["Bagalkot", "Mysuru"], npk: { N: 125, P: 60, K: 85 }, npkString: "N: 100–150, P: 50–70, K: 70–100", remarks: "Perennial, moderate water needs.", weight: 0.75 },
+            { crop: "Pomegranate", cropType: "Fruit", season: "Kharif", months: ["June", "July", "August"], soil: ["Red", "Loamy"], districts: ["Vijayapura", "Bagalkot"], npk: { N: 125, P: 60, K: 85 }, npkString: "N: 100–150, P: 50–70, K: 70–100", remarks: "Drought-tolerant, high market value.", weight: 0.8 },
+            { crop: "Papaya", cropType: "Fruit", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Loamy", "Sandy Loam"], districts: ["Mandya", "Mysuru"], npk: { N: 175, P: 80, K: 110 }, npkString: "N: 150–200, P: 70–90, K: 100–120", remarks: "Short duration, high nutrient needs.", weight: 0.7 },
+            // Flowers
+            { crop: "Marigold", cropType: "Flower", season: "Kharif", months: ["July", "August", "September"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Kolar", "Chikkaballapur"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "High demand in markets, short duration.", weight: 0.9 },
+            { crop: "Jasmine", cropType: "Flower", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Red", "Loamy"], districts: ["Mysuru", "Mandya"], npk: { N: 70, P: 35, K: 35 }, npkString: "N: 60–80, P: 30–40, K: 30–40", remarks: "Perennial, needs well-drained soils.", weight: 0.8 },
+            { crop: "Rose", cropType: "Flower", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Kolar", "Chikkaballapur"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "High market value, requires pruning.", weight: 0.85 },
+            { crop: "Chrysanthemum", cropType: "Flower", season: "Rabi", months: ["October", "November", "December"], soil: ["Loamy", "Sandy Loam"], districts: ["Bengaluru Rural", "Chikkaballapur"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Cool climate, high demand.", weight: 0.8 },
+            { crop: "Tuberose", cropType: "Flower", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Loamy", "Alluvial"], districts: ["Mysuru", "Mandya"], npk: { N: 70, P: 35, K: 35 }, npkString: "N: 60–80, P: 30–40, K: 30–40", remarks: "Perennial, high fragrance value.", weight: 0.75 },
+            // Cash Crops
+            { crop: "Sugarcane", cropType: "Cash Crop", season: "Kharif", months: ["June", "July", "August"], soil: ["Loamy", "Alluvial", "Black"], districts: ["Bagalkot", "Mandya", "Belagavi"], npk: { N: 225, P: 90, K: 110 }, npkString: "N: 200–250, P: 80–100, K: 100–120", remarks: "High nutrient demand, needs irrigation.", weight: 0.9 },
+            { crop: "Cotton", cropType: "Cash Crop", season: "Kharif", months: ["June", "July", "August"], soil: ["Black", "Alluvial"], districts: ["Raichur", "Kalaburagi", "Vijayapura"], npk: { N: 90, P: 45, K: 45 }, npkString: "N: 80–100, P: 40–50, K: 40–50", remarks: "Requires deep, well-drained soils.", weight: 0.8 },
+            { crop: "Tobacco", cropType: "Cash Crop", season: "Kharif", months: ["July", "August"], soil: ["Red", "Loamy"], districts: ["Mysuru", "Hassan"], npk: { N: 70, P: 35, K: 45 }, npkString: "N: 60–80, P: 30–40, K: 40–50", remarks: "High market value, needs careful curing.", weight: 0.7 },
+            { crop: "Arecanut", cropType: "Cash Crop", season: "Year-Round", months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], soil: ["Lateritic", "Red"], districts: ["Dakshina Kannada", "Udupi"], npk: { N: 125, P: 60, K: 85 }, npkString: "N: 100–150, P: 50–70, K: 70–100", remarks: "Perennial, high water needs in coastal areas.", weight: 0.85 }
+        ];
+
+        const npkThresholds = {
+            nitrogen: { min: 20, max: 250 },
+            phosphorus: { min: 20, max: 100 },
+            potassium: { min: 15, max: 200 }
+        };
+
+        const monthToSeason = {
+            "January": "Rabi",
+            "February": "Rabi",
+            "March": "Zaid",
+            "April": "Zaid",
+            "May": "Zaid",
+            "June": "Kharif",
+            "July": "Kharif",
+            "August": "Kharif",
+            "September": "Kharif",
+            "October": "Rabi",
+            "November": "Rabi",
+            "December": "Rabi"
+        };
+
+        function calculateNPKDistance(crop, inputN, inputP, inputK) {
+            // Normalize differences to avoid bias from different scales
+            const nDiff = (crop.npk.N - inputN) / (npkThresholds.nitrogen.max - npkThresholds.nitrogen.min);
+            const pDiff = (crop.npk.P - inputP) / (npkThresholds.phosphorus.max - npkThresholds.phosphorus.min);
+            const kDiff = (crop.npk.K - inputK) / (npkThresholds.potassium.max - npkThresholds.potassium.min);
+            return Math.sqrt(nDiff * nDiff + pDiff * pDiff + kDiff * kDiff);
+        }
+
+        function checkNPKAlerts(nitrogen, phosphorus, potassium) {
+            const alerts = [];
+            if (nitrogen && nitrogen < npkThresholds.nitrogen.min) {
+                alerts.push(`Warning: Nitrogen value (${nitrogen} kg/ha) is lower than typical minimum (${npkThresholds.nitrogen.min} kg/ha). Consider increasing to improve yield.`);
+            } else if (nitrogen && nitrogen > npkThresholds.nitrogen.max) {
+                alerts.push(`Warning: Nitrogen value (${nitrogen} kg/ha) is higher than typical maximum (${npkThresholds.nitrogen.max} kg/ha). Risk of over-fertilization.`);
+            }
+            if (phosphorus && phosphorus < npkThresholds.phosphorus.min) {
+                alerts.push(`Warning: Phosphorus value (${phosphorus} kg/ha) is lower than typical minimum (${npkThresholds.phosphorus.min} kg/ha). Consider increasing for root development.`);
+            } else if (phosphorus && phosphorus > npkThresholds.phosphorus.max) {
+                alerts.push(`Warning: Phosphorus value (${phosphorus} kg/ha) is higher than typical maximum (${npkThresholds.phosphorus.max} kg/ha). Risk of nutrient imbalance.`);
+            }
+            if (potassium && potassium < npkThresholds.potassium.min) {
+                alerts.push(`Warning: Potassium value (${potassium} kg/ha) is lower than typical minimum (${npkThresholds.potassium.min} kg/ha). Consider increasing for plant health.`);
+            } else if (potassium && potassium > npkThresholds.potassium.max) {
+                alerts.push(`Warning: Potassium value (${potassium} kg/ha) is higher than typical maximum (${npkThresholds.potassium.max} kg/ha). Risk of soil issues.`);
+            }
+            return alerts;
+        }
+
+        function renderTable(data, bestCrop) {
+            const tableBody = document.getElementById("cropTableBody");
+            tableBody.innerHTML = "";
+            if (data.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="9" class="p-3 text-center text-gray-500">No crops match the criteria. Try broadening your filters (e.g., select 'All Months' or 'All Crop Types').</td>`;
+                tableBody.appendChild(row);
+                return;
+            }
+            data.forEach(item => {
+                const isBest = bestCrop && item.crop === bestCrop.crop;
+                const row = document.createElement("tr");
+                row.className = isBest ? "bg-green-100" : "";
+                row.innerHTML = `
+                    <td class="p-3 border-b">${item.crop}</td>
+                    <td class="p-3 border-b">${item.cropType}</td>
+                    <td class="p-3 border-b">${item.season}</td>
+                    <td class="p-3 border-b">${item.months.join(", ")}</td>
+                    <td class="p-3 border-b">${item.soil.join(", ")}</td>
+                    <td class="p-3 border-b">${item.districts.join(", ")}</td>
+                    <td class="p-3 border-b">${item.npkString}</td>
+                    <td class="p-3 border-b">${item.remarks}</td>
+                    <td class="p-3 border-b">${isBest ? "Best Suited" : ""}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function renderAlerts(alerts) {
+            const alertsDiv = document.getElementById("alerts");
+            alertsDiv.innerHTML = "";
+            if (alerts.length > 0) {
+                const alertBox = document.createElement("div");
+                alertBox.className = "bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded";
+                alertBox.innerHTML = alerts.map(alert => `<p>${alert}</p>`).join("");
+                alertsDiv.appendChild(alertBox);
+            }
+        }
+
+        function filterTable() {
+            const month = document.getElementById("month").value;
+            const season = document.getElementById("season").value;
+            const soil = document.getElementById("soil").value;
+            const district = document.getElementById("district").value;
+            const cropType = document.getElementById("cropType").value;
+            const nitrogen = parseFloat(document.getElementById("nitrogen").value) || 0;
+            const phosphorus = parseFloat(document.getElementById("phosphorus").value) || 0;
+            const potassium = parseFloat(document.getElementById("potassium").value) || 0;
+
+            // Check NPK thresholds and display alerts
+            let alerts = checkNPKAlerts(nitrogen, phosphorus, potassium);
+
+            // Filter crops based on month, season, soil, district, and crop type
+            let filteredData = cropData.filter(item => {
+                const monthMatch = month === "" || item.months.includes(month);
+                const seasonMatch = season === "" || item.season === season || (month && monthToSeason[month] === item.season);
+                const soilMatch = soil === "" || item.soil.includes(soil);
+                const districtMatch = district === "" || item.districts.includes(district);
+                const cropTypeMatch = cropType === "" || item.cropType === cropType;
+                return monthMatch && seasonMatch && soilMatch && districtMatch && cropTypeMatch;
+            });
+
+            // If no crops match, relax month and season constraints
+            if (filteredData.length === 0) {
+                filteredData = cropData.filter(item => {
+                    const soilMatch = soil === "" || item.soil.includes(soil);
+                    const districtMatch = district === "" || item.districts.includes(district);
+                    const cropTypeMatch = cropType === "" || item.cropType === cropType;
+                    return soilMatch && districtMatch && cropTypeMatch;
+                });
+                if (filteredData.length > 0) {
+                    alerts.push("No crops match the selected month/season. Showing alternatives suitable for the district and soil.");
+                }
+            }
+
+            // Sort by NPK proximity and weight
+            filteredData = filteredData.map(item => ({
+                ...item,
+                distance: calculateNPKDistance(item, nitrogen || 100, phosphorus || 50, potassium || 40)
+            })).sort((a, b) => {
+                const scoreA = a.distance - a.weight * 0.5; // Adjust weight impact
+                const scoreB = b.distance - b.weight * 0.5;
+                return scoreA - scoreB;
+            });
+
+            // Select the best-suited crop (top of sorted list)
+            const bestCrop = filteredData.length > 0 ? filteredData[0] : null;
+
+            renderAlerts(alerts);
+            renderTable(filteredData, bestCrop);
+        }
+
+        // Add event listeners to all inputs
+        document.querySelectorAll("select, input").forEach(element => {
+            element.addEventListener("input", filterTable);
+        });
+
+        // Initial render
+        filterTable();
+    </script>
+</body>
+</html>
